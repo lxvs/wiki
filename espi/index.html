@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>eSPI - Enhanced Serial Peripheral Interface</title>
+  <meta charset="UTF-8"/>
+  <meta name="description" content="Introduction to eSPI (Enhanced Serial Peripheral Interface)">
+  <link rel="stylesheet" href="/styles/bare.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <article>
+    <h1>eSPI - Enhanced Serial Peripheral Interface</h1>
+    <footer id="time">Updated on <time datetime="2023-08-18">August 18, 2023</time>.</footer>
+
+    <section>
+      <h2 id="content">Content</h2>
+      <ul class="toc">
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#compared-to-lpc">Compared to LPC</a></li>
+      </ul>
+    </section>
+
+    <section id="introduction">
+      <h2>Introduction</h2>
+      <p>
+        eSPI (Enhanced Serial Peripheral Interface) is born to replace <a href="/lpc" class="red">LPC (Low Pin
+        Count)</a> buses.  LPC bus is a legacy bus developed to replace <a href="/isa" class="red">ISA (Industry
+        Standard Architecture)</a> bus.
+      </p>
+    </section>
+
+    <section id="compared-to-lpc">
+      <h2>Compared to LPC</h2>
+      <div style="display: flex;">
+        <figure>
+          <img src="img/over-lpc.png" alt="">
+          <figcaption>
+            EC/BMC/SIO Communication over LPC, from <cite>327432-005 eSPI Base Specification Revision 1.5</cite>
+          </figcaption>
+        </figure>
+        <figure>
+          <img src="img/over-espi.png" alt="">
+          <figcaption>
+            EC/BMC/SIO Communication over eSPI, from <cite>327432-005 eSPI Base Specification Revision 1.5</cite>
+          </figcaption>
+        </figure>
+      </div>
+      <p>
+        Sideband pin communications between chipset and these devices will be converted to in-band messages through the
+        eSPI interfaces as part of the effort to reduce the component pin count and provide a migration path towards
+        elimination of high voltage 3.3V I/O pins.
+      </p>
+      <p class="note">
+        `Sideband' mentioned above is not the same as
+        <a href="https://en.wikipedia.org/wiki/Sideband" target="_blank">`side-bind' in modulation</a>.  See
+        <a href="https://electronics.stackexchange.com/a/285786" target="_blank">this post on Stack Exchange</a> for
+        more information.
+      </p>
+      <p>
+        Out-Of-Band (OOB) messaging between Out-Of-Band Processor in the chipset and Embedded Controller (EC) or
+        Baseboard Management Controller (BMC) is also tunneled through the new eSPI interface as in-band messages, thus
+        replacing the SMBus interface for this purpose.
+      </p>
+      <p>
+        Run-time flash sharing between chipset and target devices will be supported over this new interface. The target
+        devices would be able to access the corresponding Flash partition through the Flash Access channel.
+      </p>
+      <p>
+        Depending on applications, eSPI bus may be active in all the S0-S5 system states. To lower the system power, the
+        eSPI bus frequency and data pins may be a function of the system state.
+      </p>
+    </section>
+
+  </article>
+  <address>
+    <a href="https://github.com/lxvs" target="_blank">GitHub</a> | <a href="mailto:hi@lxvs.net">Email me</a>
+  </address>
+</body>
+</html>
